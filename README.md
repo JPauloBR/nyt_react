@@ -1,42 +1,27 @@
-# Create React Express App
+# New York Times Scrubber
+#### React-based rendition of the New York Times Article Search application.
 
-## About This Boilerplate
+## Synopsis
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+React-based rendition of the New York Times Article Search application.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+## Technologies Used
+* [React]
+* [mongodb]
+* [mongoose]
+* [Axios]
 
-## Starting the app locally
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+## Created By
 
-```
-yarn install
-cd client
-yarn install
-cd ..
-``
+[JP Oliveira](https://github.com/JPauloBR) 
 
-After both installations complete, run the following command in your terminal:
+## Live App
+[NYTReact](https://intense-brushlands-88780.herokuapp.com/)
 
-```
-yarn start
-```
+## Acknowledgement
+Instructor - David Hallinan
 
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+TA - Abraham Fergie
 
-## Deployment (Heroku)
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
-yarn build
-```
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+TA - Marco Chan
