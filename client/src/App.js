@@ -4,7 +4,6 @@ import Main from "./pages/Main";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import { Container } from "./components/Grid";
-import Results from "./pages/Results";
 
 const App = () =>
   <Router>
@@ -17,8 +16,10 @@ const App = () =>
               <Route exact path="/main/:id" component={Main} />
               <Route component={NoMatch} />
             </Switch>
-            <Results />
       </Container>
+      <footer className="footer text-center">
+        <p className="text-muted small mb-0">Copyright &copy; João Paulo Alexandre de Oliveira 2017</p>
+      </footer>
     </div>
   </Router>;
 

@@ -1,67 +1,43 @@
-import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
-import API from "../../utils/API";
+import React from "react";
+import SaveBtn from "../../components/SaveBtn";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+import { Col, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, FormBtn } from "../../components/Form";
 
-class Results extends Component {
-  state = {
-    articles: [],
-  };
+const Results = props => (
 
-  componentDidMount() {
-    this.loadSavedArticles() 
-  }
-
-  loadSavedArticles = () => {
-    API.getSavedArticles()
-      .then(res =>
-        this.setState(
-          { 
-            articles: res.data
-        // console.log(res.data.response.docs)  
-          }    
-        )
-        )
-      .catch(err => console.log(err));
-  };
-
-  handleDelete = id => {
-    API.deleteArticle(id)
-      .then(res => this.loadSavedArticles())
-      .catch(err => console.log(err));
-      this.loadSavedArticles();
-  };
-
-  render() {
-    return (
-          <Col size="md-12">
-            <Container>
-              <h1>Saved Articles</h1>
-            </Container>
-            {this.state.articles.length ? (
-              <List>
-                {this.state.articles.map(article => (
-                  <ListItem key={article.externalID}>
-                    <Link to={article.url}>
-                      <strong>
-                        {article.title}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.handleDelete(article.externalID)}>
-                    </DeleteBtn>
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-    );
-  }
-}
+  <Col size="md-12 sm-12">
+    <Container>
+      <h1>Results</h1>
+    </Container>
+    {props.articles.length ? (
+      <List>
+        {props.articles.map(article => (
+          <ListItem key={article._id}>
+            <Link to={article.web_url}>
+              <strong>
+                {article.headline.main}
+              </strong>
+            </Link>
+            <SaveBtn onClick={() => {
+              props.saveArticle(
+              {
+                title: article.headline.main,
+                url: article.web_url,
+                externalID: article._id
+              }
+              );
+              props.toggleModal()
+            }
+          }>
+            </SaveBtn>
+          </ListItem>
+        ))}
+      </List>
+    ) : (
+      <h3>No Results to Display</h3>
+    )}
+  </Col>
+)
 
 export default Results;

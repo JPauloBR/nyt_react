@@ -4,7 +4,7 @@ import "./SaveBtn.css";
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
 const SaveBtn = props => (
-  <btn className="save-btn btn btn-success" {...props}>
+  <btn className="save-btn btn btn-success btn-sm" {...props}>
     Save
   </btn>
 );
