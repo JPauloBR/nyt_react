@@ -29,18 +29,19 @@ class Results extends Component {
       .catch(err => console.log(err));
   };
 
-  handleDelete = event => {
-    event.preventDefault();
-    if (this.state.title) 
-      this.loadArticles(this.state.title)
+  handleDelete = id => {
+    API.deleteArticle(id)
+      .then(res => this.loadSavedArticles())
+      .catch(err => console.log(err));
+      this.loadSavedArticles();
   };
 
   render() {
     return (
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Results</h1>
-            </Jumbotron>
+          <Col size="md-12">
+            <Container>
+              <h1>Saved Articles</h1>
+            </Container>
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (

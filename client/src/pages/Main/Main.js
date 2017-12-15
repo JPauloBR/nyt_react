@@ -3,16 +3,31 @@ import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
-import { Col, Row } from "../../components/Grid";
+import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
+import Modal  from "../../components/Modal";
+import CustomModal from "react-modal";
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
 
 class Main extends Component {
   state = {
     articles: [],
     title: "",
     startYear: "",
-    endYear: ""
+    endYear: "",
+    isOpen: false
   };
 
   componentDidMount() {
@@ -21,7 +36,8 @@ class Main extends Component {
             articles: [], 
             title: "", 
             startYear: "", 
-            endYear: "" })
+            endYear: "",
+            isOpen: false })
   }
 
   loadArticles = (searchTerm, startYear, endYear) => {
@@ -57,13 +73,17 @@ class Main extends Component {
       this.loadArticles(this.state.title)
   };
 
+  toggleModal = () => {
+    this.setState({isOpen: !this.state.isOpen})
+  }
+
   render() {
     return (
       <Row >
-          <Col size="md-6">
-            <Jumbotron>
+          <Col size="md-12">
+            <Container>
               <h1>Search</h1>
-            </Jumbotron>
+            </Container>
             <form>
               <Input
                 value={this.state.title}
@@ -91,10 +111,10 @@ class Main extends Component {
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
+          <Col size="md-12 sm-12">
+            <Container>
               <h1>Results</h1>
-            </Jumbotron>
+            </Container>
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (
@@ -104,13 +124,16 @@ class Main extends Component {
                         {article.headline.main}
                       </strong>
                     </Link>
-                    <SaveBtn onClick={() => this.saveArticle(
+                    <SaveBtn onClick={() => {
+                      this.saveArticle(
                       {
                         title: article.headline.main,
                         url: article.web_url,
                         externalID: article._id
                       }
-                      )
+                      );
+                      this.toggleModal()
+                    }
                   }>
                     </SaveBtn>
                   </ListItem>
@@ -120,6 +143,11 @@ class Main extends Component {
               <h3>No Results to Display</h3>
             )}
           </Col>
+          <Modal show={this.state.isOpen} className="modal fade" tabindex="-1" role="dialog">
+                <SaveBtn onClick={() => this.toggleModal()}/>
+          </Modal>
+
+
           </Row>
     );
   }

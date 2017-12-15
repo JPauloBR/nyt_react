@@ -17,6 +17,7 @@ const App = () =>
               <Route exact path="/main/:id" component={Main} />
               <Route component={NoMatch} />
             </Switch>
+            <Results />
       </Container>
     </div>
   </Router>;
