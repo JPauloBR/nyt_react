@@ -14,11 +14,11 @@ const Results = props => (
       <List>
         {props.articles.map(article => (
           <ListItem key={article._id}>
-            <Link to={article.web_url}>
+            <a href={article.web_url} target="_blank">
               <strong>
                 {article.headline.main}
               </strong>
-            </Link>
+            </a>
             <SaveBtn onClick={() => {
               props.saveArticle(
               {

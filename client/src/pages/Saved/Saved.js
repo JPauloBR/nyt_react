@@ -14,11 +14,11 @@ const Saved = props => (
       <List>
         {props.savedArticles.map(article => (
           <ListItem key={article.externalID}>
-            <Link to={article.url}>
+            <a href={article.url} target="_blank">
               <strong>
                 {article.title}
               </strong>
-            </Link>
+            </a>
             <DeleteBtn onClick={() => {
               props.delete(article.externalID);
             }
